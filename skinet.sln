@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{F1C9DABB-BD16-4288-988E-11E717E0D143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{EA526509-061A-4DD5-B011-EA149BF04469}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{74770F7F-4383-4B20-A57C-198DDAF7EBF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1C9DABB-BD16-4288-988E-11E717E0D143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C9DABB-BD16-4288-988E-11E717E0D143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C9DABB-BD16-4288-988E-11E717E0D143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C9DABB-BD16-4288-988E-11E717E0D143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA526509-061A-4DD5-B011-EA149BF04469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA526509-061A-4DD5-B011-EA149BF04469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA526509-061A-4DD5-B011-EA149BF04469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA526509-061A-4DD5-B011-EA149BF04469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74770F7F-4383-4B20-A57C-198DDAF7EBF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74770F7F-4383-4B20-A57C-198DDAF7EBF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74770F7F-4383-4B20-A57C-198DDAF7EBF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74770F7F-4383-4B20-A57C-198DDAF7EBF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69673278-328C-4D02-BDE7-325B9F8ED35A}
+	EndGlobalSection
+EndGlobal
