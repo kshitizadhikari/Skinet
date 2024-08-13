@@ -22,6 +22,6 @@ namespace Core.Interfaces
 
     public interface ISpecification<T, TResult> : ISpecification<T>
     {
-        Expression<Func<T, TResult>> Select { get;  }
+        Expression<Func<T, TResult>>? Select { get;  }
     }
 }
