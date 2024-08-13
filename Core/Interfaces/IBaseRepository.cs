@@ -14,6 +14,8 @@ namespace Core.Interfaces
 
         Task<T?> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> GetWithSpec(ISpecification<T> spec);
+        Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> spec);
+        Task<IReadOnlyList<TResult>> GetWithSpec<TResult>(ISpecification<T, TResult> spec);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
