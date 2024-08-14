@@ -8,6 +8,8 @@ import { FiltersDialogComponent } from './filters-dialog/filters-dialog.componen
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   MatListOption,
   MatSelectionList,
@@ -34,6 +36,8 @@ import { Product } from '../../shared/product';
     MatIcon,
     FormsModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
@@ -100,5 +104,12 @@ export class ShopComponent implements OnInit {
     this.shopParams.pageNumber = event.pageIndex + 1;
     this.shopParams.pageSize = event.pageSize;
     this.getProducts();
+  }
+
+  handleSearch(event: HTMLInputElement) {
+    setTimeout(() => {
+      this.shopParams.search = event.value;
+      this.getProducts();
+    }, 1000);
   }
 }

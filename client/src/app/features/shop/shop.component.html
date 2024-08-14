@@ -11,6 +11,12 @@
     >
     </mat-paginator>
     <div>
+      <input
+        matInput
+        placeholder="Search"
+        #searchProduct
+        (keyup)="handleSearch(searchProduct)"
+      />
       <button mat-stroked-button (click)="openFiltersDialog()">
         <mat-icon>filter_list</mat-icon>
         Filters
