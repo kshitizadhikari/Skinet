@@ -16,6 +16,8 @@ import {
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatButton } from '@angular/material/button';
 import { ShopParams } from '../../shared/models/shopParams';
+import { Pagination } from '../../shared/pagination';
+import { Product } from '../../shared/product';
 
 @Component({
   selector: 'app-shop',
@@ -37,7 +39,7 @@ import { ShopParams } from '../../shared/models/shopParams';
   styleUrl: './shop.component.scss',
 })
 export class ShopComponent implements OnInit {
-  products: any[] = [];
+  products?: Pagination<Product>;
   sortOptions = [
     { name: 'Alphabetical', value: 'name' },
     { name: 'Price: Low-High', value: 'priceAsc' },
@@ -45,7 +47,10 @@ export class ShopComponent implements OnInit {
   ];
   private shopService: ShopService = inject(ShopService);
   private dialogService = inject(MatDialog);
+
+  pageSizeOptions = [5, 10, 15];
   shopParams = new ShopParams();
+
   ngOnInit(): void {
     this.initializeShop();
   }
@@ -58,14 +63,14 @@ export class ShopComponent implements OnInit {
 
   getProducts() {
     this.shopService.getProducts(this.shopParams).subscribe({
-      next: (response) => (this.products = response.data),
+      next: (response) => (this.products = response),
       error: (error) => console.error('Error occurred:', error),
     });
   }
 
   onSortChange(event: MatSelectionListChange) {
     const selectedOption = event.options[0];
-
+    this.shopParams.pageNumber = 1;
     if (selectedOption) this.shopParams.sort = selectedOption.value;
     this.getProducts();
   }
@@ -84,9 +89,16 @@ export class ShopComponent implements OnInit {
         if (result) {
           this.shopParams.brands = result.selectedBrands;
           this.shopParams.types = result.selectedTypes;
+          this.shopParams.pageNumber = 1;
           this.getProducts();
         }
       },
     });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.shopParams.pageNumber = event.pageIndex + 1;
+    this.shopParams.pageSize = event.pageSize;
+    this.getProducts();
   }
 }

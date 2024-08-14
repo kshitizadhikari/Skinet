@@ -12,8 +12,9 @@ export class ShopService {
   private http = inject(HttpClient);
   brands: string[] = [];
   types: string[] = [];
+
   getProducts(shopParams: ShopParams) {
-    let params = new HttpParams().set('pageSize', shopParams.pageSize);
+    let params = new HttpParams();
 
     if (shopParams.brands.length > 0) {
       params = params.append('brands', shopParams.brands.join(','));
@@ -26,6 +27,9 @@ export class ShopService {
     if (shopParams.sort) {
       params = params.append('sort', shopParams.sort);
     }
+
+    params = params.append('pageSize', shopParams.pageSize);
+    params = params.append('pageIndex', shopParams.pageNumber);
 
     console.log(params.toString());
     return this.http.get<Pagination<Product>>(`${this.baseUrl}products`, {
