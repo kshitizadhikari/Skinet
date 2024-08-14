@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Pagination } from '../shared/pagination';
 import { Product } from '../shared/product';
+import { ShopParams } from '../shared/models/shopParams';
 
 @Injectable({
   providedIn: 'root',
@@ -9,23 +10,21 @@ import { Product } from '../shared/product';
 export class ShopService {
   baseUrl = 'https://localhost:5001/api/';
   private http = inject(HttpClient);
-
-  types: string[] = [];
   brands: string[] = [];
+  types: string[] = [];
+  getProducts(shopParams: ShopParams) {
+    let params = new HttpParams().set('pageSize', shopParams.pageSize);
 
-  getProducts(brands?: string[], types?: string[], sort?: string) {
-    let params = new HttpParams().set('pageSize', '20');
-
-    if (brands && brands.length > 0) {
-      params = params.append('brands', brands.join(','));
+    if (shopParams.brands.length > 0) {
+      params = params.append('brands', shopParams.brands.join(','));
     }
 
-    if (types && types.length > 0) {
-      params = params.append('types', types.join(','));
+    if (shopParams.types.length > 0) {
+      params = params.append('types', shopParams.types.join(','));
     }
 
-    if (sort) {
-      params = params.append('sort', sort);
+    if (shopParams.sort) {
+      params = params.append('sort', shopParams.sort);
     }
 
     console.log(params.toString());
