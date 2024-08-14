@@ -16,6 +16,8 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class ShopComponent implements OnInit {
   products: any[] = [];
+  selectedBrands: string[] = [];
+  selectedTypes: string[] = [];
   private shopService: ShopService = inject(ShopService);
   private dialogService = inject(MatDialog);
 
@@ -35,6 +37,25 @@ export class ShopComponent implements OnInit {
   openFiltersDialog() {
     const dialogRef = this.dialogService.open(FiltersDialogComponent, {
       minWidth: '500px',
+      data: {
+        selectedBrands: this.selectedBrands,
+        selectedTypes: this.selectedTypes,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.selectedBrands = result.selectedBrands;
+          this.selectedTypes = result.selectedTypes;
+          this.shopService
+            .getProducts(this.selectedBrands, this.selectedTypes)
+            .subscribe({
+              next: (response) => (this.products = response.data),
+              error: (error) => console.log(error),
+            });
+        }
+      },
     });
   }
 }
