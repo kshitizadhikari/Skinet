@@ -1,18 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ShopService } from '../../core/shop.service';
 import { MatCard } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { MatButton } from '@angular/material/button';
+import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
+import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [MatCard, JsonPipe, ProductItemComponent],
+  imports: [MatCard, JsonPipe, ProductItemComponent, MatButton, MatIcon],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
 })
 export class ShopComponent implements OnInit {
   products: any[] = [];
   private shopService: ShopService = inject(ShopService);
+  private dialogService = inject(MatDialog);
 
   ngOnInit(): void {
     this.initializeShop();
@@ -24,6 +29,12 @@ export class ShopComponent implements OnInit {
     this.shopService.getProducts().subscribe({
       next: (response) => (this.products = response.data),
       error: (error) => console.error('Error occurred:', error),
+    });
+  }
+
+  openFiltersDialog() {
+    const dialogRef = this.dialogService.open(FiltersDialogComponent, {
+      minWidth: '500px',
     });
   }
 }
