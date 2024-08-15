@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ShopService } from '../../core/shop.service';
 import { MatCard } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
@@ -20,6 +19,7 @@ import { MatButton } from '@angular/material/button';
 import { ShopParams } from '../../shared/models/shopParams';
 import { Pagination } from '../../shared/pagination';
 import { Product } from '../../shared/product';
+import { ShopService } from '../../core/services/shop.service';
 
 @Component({
   selector: 'app-shop',

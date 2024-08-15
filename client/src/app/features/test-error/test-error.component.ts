@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ErrorService } from '../../core/error.service';
+import { ErrorService } from '../../core/services/error.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

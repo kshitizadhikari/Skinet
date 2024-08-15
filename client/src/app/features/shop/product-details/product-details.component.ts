@@ -5,8 +5,8 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatDivider } from '@angular/material/divider';
-import { ShopService } from '../../../core/shop.service';
 import { Product } from '../../../shared/product';
+import { ShopService } from '../../../core/services/shop.service';
 
 @Component({
   selector: 'app-product-details',
