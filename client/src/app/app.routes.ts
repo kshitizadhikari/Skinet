@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'shop/:id', component: ProductDetailsComponent },
   { path: 'test-error', component: TestErrorComponent },
-  { path: 'not-found-error', component: NotFoundComponent },
+  { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

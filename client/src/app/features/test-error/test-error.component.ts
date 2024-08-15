@@ -40,10 +40,11 @@ export class TestErrorComponent {
     });
   }
 
+  validationErrors?: string[];
   getValidationError() {
     this.errorService.getValidationError().subscribe({
       next: (response) => console.log(response),
-      error: (error) => console.log(error),
+      error: (error) => (this.validationErrors = error),
     });
   }
 }
