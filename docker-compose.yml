@@ -8,4 +8,12 @@ services:
             - MSSQL_SA_PASSWORD=Password@1
         ports:
             - "1433:1433"
+        volumes:
+            - sql-data:/var/opt/mssql
         container_name: sql_server
+    redis:
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis-data:/data
