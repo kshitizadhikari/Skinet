@@ -1,1 +1,14 @@
-<p>not-found works!</p>
+<div class="flex items-center justify-center min-h-96 p-4 bg-slate-200">
+  <div class="text-center">
+    <mat-icon class="text-purple-600 icon-display mb-10">error_icon</mat-icon>
+    <h3 class="font-bold text-4xl text-gray-800">404</h3>
+    <p class="mt-2 font-semibold text-gray-500">Page Not Found</p>
+    <button
+      [routerLink]="['/shop']"
+      routerLinkActive="router-link-active"
+      mat-stroked-button
+    >
+      Back to Shop
+    </button>
+  </div>
+</div>
