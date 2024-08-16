@@ -65,7 +65,7 @@ export class CartService {
       item.quantity = quantity;
       items.push(item);
     } else {
-      items[index].quantity = quantity;
+      items[index].quantity += quantity;
     }
     return items;
   }
@@ -118,6 +118,10 @@ export class CartService {
   }
 
   getProductQuantity(productId: number) {
-    return this.cart()?.items.findIndex((x) => x.productId === productId);
+    const cart = this.cart();
+    if (!cart || !cart.items) return 0;
+
+    const item = cart.items.find((x) => x.productId == productId);
+    return item?.quantity ?? 1;
   }
 }
