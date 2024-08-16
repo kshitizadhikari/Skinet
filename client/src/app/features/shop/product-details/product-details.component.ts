@@ -7,6 +7,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatDivider } from '@angular/material/divider';
 import { Product } from '../../../shared/product';
 import { ShopService } from '../../../core/services/shop.service';
+import { FormsModule } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +20,8 @@ import { ShopService } from '../../../core/services/shop.service';
     MatFormField,
     MatLabel,
     MatDivider,
+    FormsModule,
+    MatInput,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',

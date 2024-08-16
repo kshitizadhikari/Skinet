@@ -6,12 +6,34 @@
   >
     <img src="assets/images/logo.png" alt="app logo" class="max-h-16" />
     <nav class="flex gap-3 my-2 uppercase text-xl">
-      <a [routerLink]="['/']" routerLinkActive="router-link-active">Home</a>
-      <a [routerLink]="['/shop']">Shop</a>
-      <a [routerLink]="['/test-error']">Error</a>
+      <a
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+
+      <a
+        [routerLink]="['/shop']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Shop</a
+      >
+      <a
+        [routerLink]="['/test-error']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Error</a
+      >
     </nav>
     <div class="flex gap-3 align-middle">
-      <a matBadge="5" matBadgeSize="large" class="custom-badge mt-2 mr-2">
+      <a
+        matBadge="5"
+        matBadgeSize="large"
+        class="custom-badge mt-2 mr-2"
+        routerLink="/cart"
+        routerLinkActive="router-link-active"
+      >
         <mat-icon>shopping_cart</mat-icon>
       </a>
       <button mat-stroked-button>Login</button>

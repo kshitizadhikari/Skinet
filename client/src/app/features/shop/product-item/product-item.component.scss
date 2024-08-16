@@ -1,0 +1,9 @@
+.card-class {
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.card-class:hover {
+  transform: translateY(-15px);
+  cursor: pointer;
+}

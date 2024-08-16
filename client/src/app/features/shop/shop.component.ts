@@ -36,7 +36,6 @@ import { ShopService } from '../../core/services/shop.service';
     MatIcon,
     FormsModule,
     MatPaginatorModule,
-    MatFormFieldModule,
     MatInputModule,
   ],
   templateUrl: './shop.component.html',

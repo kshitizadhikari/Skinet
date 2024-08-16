@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 $customTheme: mat.define-theme();
-@inclue mat.core();
+@include mat.core();
 
 .custom-theme {
   @include mat.all-component-themes($customTheme);
@@ -22,7 +22,7 @@ $customTheme: mat.define-theme();
   @apply mx-auto max-w-screen-2xl;
 }
 
-button.match-input-height { 
+button.match-input-height {
   height: var(--mat-form-field-container-height) !important;
 }
 
