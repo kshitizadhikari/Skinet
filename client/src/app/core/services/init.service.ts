@@ -9,7 +9,9 @@ export class InitService {
   private cartService = inject(CartService);
 
   init() {
-    const cartId = localStorage.getItem('card_id');
+    const cartId = localStorage.getItem('cart_id');
+    console.log(cartId);
+
     const cart$ = cartId ? this.cartService.getCart(cartId) : of(null);
     return cart$;
   }
