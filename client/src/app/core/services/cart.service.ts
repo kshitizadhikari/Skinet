@@ -107,6 +107,7 @@ export class CartService {
       }
     }
   }
+
   deleteCart() {
     this.http.delete(this.baseUrl + 'cart?id=' + this.cart()?.id).subscribe({
       next: () => {
@@ -114,5 +115,9 @@ export class CartService {
         this.cart.set(null);
       },
     });
+  }
+
+  getProductQuantity(productId: number) {
+    return this.cart()?.items.findIndex((x) => x.productId === productId);
   }
 }

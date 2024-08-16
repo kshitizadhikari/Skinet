@@ -17,20 +17,29 @@
           </p>
         </div>
 
-        <div class="flex gap-4 mt-6">
-          <button
-            mat-flat-button
-            class="match-input-height"
-            (click)="this.cartService.addItemToCart(product)"
-          >
-            <mat-icon>shopping_cart</mat-icon>
-            Add To Cart
-          </button>
-          <mat-form-field appearance="outline" class="flex">
-            <mat-label>Quantity</mat-label>
-            <input matInput type="number" />
-          </mat-form-field>
-        </div>
+        <form
+          (ngSubmit)="
+            this.cartService.addItemToCart(product, quantityInput.valueAsNumber)
+          "
+        >
+          <div class="flex gap-4 mt-6">
+            <button mat-flat-button class="match-input-height" type="submit">
+              <mat-icon>shopping_cart</mat-icon>
+              Add To Cart
+            </button>
+            <mat-form-field appearance="outline" class="flex">
+              <mat-label>Quantity</mat-label>
+              <input
+                matInput
+                type="number"
+                #quantityInput
+                required
+                min="1"
+                [value]="this.cartService.getProductQuantity(product.id) ?? 1"
+              />
+            </mat-form-field>
+          </div>
+        </form>
 
         <mat-divider></mat-divider>
 
