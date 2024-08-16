@@ -1,12 +1,14 @@
 <section>
   <div class="mx-auto max-w-full">
     <div class="flex w-full items-start gap-6 mt-40">
-      <div class="w-full">
-        @for (item of this.cartService.cart()?.items; track $index) { 
-            <app-cart-item [item]="item"></app-cart-item>
+      <div class="cart-items-box w-3/4 p-4">
+        @for (item of this.cartService.cart()?.items; track $index) {
+        <app-cart-item [item]="item"></app-cart-item>
         }
-
-      </div> 
+      </div>
+      <div class="w-1/4">
+        <app-order-summary></app-order-summary>
+      </div>
     </div>
   </div>
 </section>

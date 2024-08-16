@@ -13,8 +13,24 @@ export class CartService {
   private http = inject(HttpClient);
   cart = signal<Cart | null>(null);
   itemCount = computed(() => {
-    return this.cart()?.items.reduce((sum, item) => sum + item.quantity, 0); 
-  })
+    return this.cart()?.items.reduce((sum, item) => sum + item.quantity, 0);
+  });
+
+  totals = computed(() => {
+    const cart = this.cart();
+    if (!cart) return null;
+    const subTotal = cart.items.reduce(
+      (t, item) => item.price * item.quantity + t,
+      0
+    );
+    const discount = 0;
+    const deliveryCharge = 0;
+    return {
+      subTotal,
+      discount,
+      deliveryCharge,
+    };
+  });
 
   getCart(id: string): Observable<Cart> {
     return this.http.get<Cart>(this.baseUrl + 'cart?id=' + id).pipe(
@@ -74,5 +90,29 @@ export class CartService {
     const cart = new Cart();
     localStorage.setItem('cart_id', cart.id);
     return cart;
+  }
+
+  removeFromCart(productId: number) {
+    const cart = this.cart();
+    if (!cart) return;
+    const index: number =
+      cart?.items.findIndex((x) => x.productId === productId) ?? -1;
+    console.log(index);
+    if (index !== -1) {
+      cart.items.splice(index, 1);
+      if (cart.items.length === 0) {
+        this.deleteCart();
+      } else {
+        this.setCart(cart);
+      }
+    }
+  }
+  deleteCart() {
+    this.http.delete(this.baseUrl + 'cart?id=' + this.cart()?.id).subscribe({
+      next: () => {
+        localStorage.removeItem('cart_id');
+        this.cart.set(null);
+      },
+    });
   }
 }

@@ -1,7 +1,7 @@
 <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm mb-4">
-  <div class="flex items-center justify-between gap-6">
+  <div class="flex items-center justify-between gap-2">
     <a
-      [routerLink]="['/shop/{{item().productId}}']"
+      routerLink="/shop/{{ item().productId }}"
       routerLinkActive="router-link-active"
       class="shrink order-1"
     >
@@ -29,18 +29,21 @@
         {{ item().price | currency }}
       </p>
     </div>
-  </div>
+    <div class="w-full flex-1 space-y-2 order-2 max-w-md">
+      <a routerLink="/shop/{{ item().productId }}" class="font-medium">
+        {{ item().productName }}
+      </a>
 
-  <div class="w-full flex-1 space-y-4 order-2 max-w-md">
-    <a routerLink="/shop/{{ item().productId }}" class="font-medium">
-      {{ item().productName }}
-    </a>
-
-    <div class="flex items-center gap-4">
-      <button mat-button color="warn">
-        <mat-icon>delete</mat-icon>
-        Delete
-      </button>
-    </div>
+      <div class="flex items-start">
+        <button
+          mat-button
+          color="warn"
+          (click)="this.cartService.removeFromCart(item().productId)"
+        >
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </div>
+    </div> 
   </div>
 </div>
