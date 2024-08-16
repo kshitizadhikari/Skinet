@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CartService } from '../../core/services/cart.service';
+import { MatCardModule } from '@angular/material/card';
+import { CartItemComponent } from "./cart-item/cart-item.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [MatCardModule, CartItemComponent],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  styleUrl: './cart.component.scss',
 })
 export class CartComponent {
-
+  cartService = inject(CartService);
 }
