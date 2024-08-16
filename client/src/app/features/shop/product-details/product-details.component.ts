@@ -9,6 +9,7 @@ import { Product } from '../../../shared/product';
 import { ShopService } from '../../../core/services/shop.service';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -28,6 +29,7 @@ import { MatInput } from '@angular/material/input';
 })
 export class ProductDetailsComponent implements OnInit {
   private shopService = inject(ShopService);
+  cartService = inject(CartService);
   private activatedRoute = inject(ActivatedRoute);
   product?: Product;
   ngOnInit(): void {

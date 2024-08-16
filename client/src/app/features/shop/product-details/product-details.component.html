@@ -18,7 +18,11 @@
         </div>
 
         <div class="flex gap-4 mt-6">
-          <button mat-flat-button class="match-input-height">
+          <button
+            mat-flat-button
+            class="match-input-height"
+            (click)="this.cartService.addItemToCart(product)"
+          >
             <mat-icon>shopping_cart</mat-icon>
             Add To Cart
           </button>
