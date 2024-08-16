@@ -16,4 +16,12 @@ import { CartService } from '../../../core/services/cart.service';
 export class CartItemComponent {
   item = input.required<CartItem>();
   cartService = inject(CartService);
+
+  incrementQuantity() {
+    this.cartService.addItemToCart(this.item());
+  }
+
+  decrementQuantity() {
+    this.cartService.removeItemFromCart(this.item().productId);
+  }
 }

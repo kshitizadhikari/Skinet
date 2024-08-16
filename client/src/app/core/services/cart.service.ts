@@ -55,6 +55,7 @@ export class CartService {
     cart.items = this.addOrUpdateItem(cart.items, item, quantity);
     this.setCart(cart);
   }
+
   addOrUpdateItem(
     items: CartItem[],
     item: CartItem,
@@ -92,19 +93,28 @@ export class CartService {
     return cart;
   }
 
-  removeFromCart(productId: number) {
+  removeItemFromCart(productId: number) {
     const cart = this.cart();
     if (!cart) return;
     const index: number =
       cart?.items.findIndex((x) => x.productId === productId) ?? -1;
-    console.log(index);
     if (index !== -1) {
-      cart.items.splice(index, 1);
-      if (cart.items.length === 0) {
-        this.deleteCart();
+      cart.items[index].quantity--;
+      if (cart.items[index].quantity === 0) {
+        this.removeProductFromCart(productId);
       } else {
         this.setCart(cart);
       }
+    }
+  }
+
+  removeProductFromCart(productId: number) {
+    const cart = this.cart();
+    if (!cart) return;
+    const index = cart.items.findIndex((x) => x.productId === productId);
+    cart.items.splice(index, 1);
+    if (cart.items.length <= 0) {
+      this.deleteCart();
     }
   }
 

@@ -11,16 +11,16 @@
         class="h-20 w-20"
       />
     </a>
-    <div class="flex items-center justify-between order-3">
-      <button mat-icon-button>
+    <div class="flex items-center gap-3 justify-between order-3">
+      <button mat-icon-button (click)="this.decrementQuantity()">
         <mat-icon class="text-red-600">remove</mat-icon>
       </button>
 
-      <div class="font-semibold text-left mb-1">
+      <div class="font-semibold text-l text-left mb-1">
         {{ item().quantity }}
       </div>
 
-      <button mat-icon-button>
+      <button mat-icon-button (click)="this.incrementQuantity()">
         <mat-icon class="text-green-600">add</mat-icon>
       </button>
     </div>
@@ -38,12 +38,12 @@
         <button
           mat-button
           color="warn"
-          (click)="this.cartService.removeFromCart(item().productId)"
+          (click)="this.cartService.removeProductFromCart(item().productId)"
         >
           <mat-icon>delete</mat-icon>
           Delete
         </button>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
