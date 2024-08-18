@@ -5,11 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Api.MIddleware;
 using Infrastructure.Data.SeedData;
 using StackExchange.Redis;
+using Core.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>()
+    .AddEntityFrameworkStores<StoreContext>();
 builder.Services.AddDbContext<StoreContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -32,6 +36,7 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://loalhost:4200", "https://localhost:4200"));
 app.MapControllers();
+app.MapGroup("api"). MapIdentityApi<AppUser>();
 try
 {
     using var scope = app.Services.CreateScope();
