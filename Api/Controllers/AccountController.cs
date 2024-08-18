@@ -1,4 +1,5 @@
 ﻿using Api.DTOs;
+using Api.Extensions;
 using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,13 @@ namespace Api.Controllers
 
             var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
 
-            if (!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) { 
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+                return ValidationProblem();
+            }
             return Ok(user);
         }
 
@@ -42,12 +49,8 @@ namespace Api.Controllers
         [HttpGet("user-info")]
         public async Task<ActionResult> GetUserInfo()
         {
-            if (User.Identity.IsAuthenticated == false) return NoContent();
-            var user = await signInManager.UserManager.Users
-                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
-
-            if (user == null) return Unauthorized();
-
+            if (User.Identity?.IsAuthenticated == false) return NoContent();
+            var user = await ClaimsPrincipalExtensions.GetUserByEmail(signInManager.UserManager, User);
             return Ok(new
             {
                 user.FirstName,
