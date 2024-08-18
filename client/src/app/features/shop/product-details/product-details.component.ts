@@ -32,6 +32,9 @@ export class ProductDetailsComponent implements OnInit {
   cartService = inject(CartService);
   private activatedRoute = inject(ActivatedRoute);
   product?: Product;
+  quantityInCart = 0;
+  quantity = 1;
+
   ngOnInit(): void {
     this.loadProduct();
   }
@@ -40,8 +43,42 @@ export class ProductDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (!id) return;
     this.shopService.getProduct(+id).subscribe({
-      next: (response) => (this.product = response),
+      next: (response) => {
+        this.product = response;
+        this.updateQuantityInCart();
+      },
       error: (error) => console.log(`Error getting product with id: ${id}`),
     });
+  }
+
+  updateCart() {
+    if (!this.product) return;
+    if (this.quantity > this.quantityInCart) {
+      let itemsToAdd = this.quantity - this.quantityInCart;
+      this.cartService.addItemToCart(this.product, itemsToAdd);
+    } else {
+      let itemsToRemove = this.quantityInCart - this.quantity;
+      this.quantityInCart -= itemsToRemove;
+      this.cartService.removeItemFromCart(this.product.id, itemsToRemove);
+    }
+    this.updateQuantityInCart();
+    console.log('Quantity: ' + this.quantity);
+    console.log('CartQuantity: ' + this.quantityInCart);
+  }
+
+  updateQuantityInCart() {
+    this.quantityInCart =
+      this.cartService
+        .cart()
+        ?.items.find((x) => x.productId == this.product?.id)?.quantity || 0;
+    if (this.quantityInCart != 0) {
+      this.quantity = this.quantityInCart;
+    } else {
+      this.quantity = 1;
+    }
+  }
+
+  getButtonText() {
+    return this.quantityInCart > 0 ? 'Update Cart' : 'Add To Cart';
   }
 }

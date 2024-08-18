@@ -25,10 +25,12 @@ export class CartService {
     );
     const discount = 0;
     const deliveryCharge = 0;
+    const finalTotal = subTotal - discount + deliveryCharge;
     return {
       subTotal,
       discount,
       deliveryCharge,
+      finalTotal,
     };
   });
 
@@ -93,45 +95,47 @@ export class CartService {
     return cart;
   }
 
-  removeItemFromCart(productId: number) {
+  removeItemFromCart(productId: number, quantity = 1) {
     const cart = this.cart();
     if (!cart) return;
-    const index: number =
-      cart?.items.findIndex((x) => x.productId === productId) ?? -1;
-    if (index !== -1) {
-      cart.items[index].quantity--;
-      if (cart.items[index].quantity === 0) {
-        this.removeProductFromCart(productId);
-      } else {
-        this.setCart(cart);
-      }
+
+    const index = cart.items.findIndex((x) => x.productId === productId);
+    if (index === -1) return;
+
+    cart.items[index].quantity -= quantity;
+
+    if (cart.items[index].quantity <= 0) {
+      this.removeProductFromCart(productId);
+    } else {
+      this.setCart(cart);
     }
   }
 
   removeProductFromCart(productId: number) {
     const cart = this.cart();
     if (!cart) return;
+
     const index = cart.items.findIndex((x) => x.productId === productId);
+    if (index === -1) return;
+
     cart.items.splice(index, 1);
-    if (cart.items.length <= 0) {
+
+    if (cart.items.length === 0) {
       this.deleteCart();
+    } else {
+      this.setCart(cart);
     }
   }
 
   deleteCart() {
-    this.http.delete(this.baseUrl + 'cart?id=' + this.cart()?.id).subscribe({
+    const cartId = this.cart()?.id;
+    if (!cartId) return;
+
+    this.http.delete(`${this.baseUrl}cart?id=${cartId}`).subscribe({
       next: () => {
         localStorage.removeItem('cart_id');
         this.cart.set(null);
       },
     });
-  }
-
-  getProductQuantity(productId: number) {
-    const cart = this.cart();
-    if (!cart || !cart.items) return 0;
-
-    const item = cart.items.find((x) => x.productId == productId);
-    return item?.quantity ?? 1;
   }
 }
