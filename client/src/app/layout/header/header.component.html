@@ -36,6 +36,10 @@
       >
         <mat-icon>shopping_cart</mat-icon>
       </a>
+      @if (this.accountService.currentUser()) {
+      <button mat-stroked-button (click)="logout()">Logout</button>
+
+      } @else {
       <button
         routerLink="/account/login"
         routerLinkActive="router-link-active"
@@ -50,6 +54,7 @@
       >
         Register
       </button>
+      }
     </div>
   </div>
 </header>
@@ -59,5 +64,4 @@
   mode="indeterminate"
   class="fixed top-20 z-20"
 ></mat-progress-bar>
-
 }
