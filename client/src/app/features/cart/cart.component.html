@@ -1,13 +1,10 @@
 <section>
+  @if (this.cartService.cart()?.items) {
   <div class="mx-auto max-w-full">
     <div class="flex w-full items-start gap-6 mt-40">
-      <div class="w-3/4 p-4">
-        @if (this.cartService.cart()?.items) {
-        <div class="cart-items-box">
-          @for (item of this.cartService.cart()?.items; track $index) {
-          <app-cart-item [item]="item"></app-cart-item>
-          }
-        </div>
+      <div class="cart-items-box w-3/4 p-4">
+        @for (item of this.cartService.cart()?.items; track $index) {
+        <app-cart-item [item]="item"></app-cart-item>
         }
       </div>
 
@@ -16,4 +13,7 @@
       </div>
     </div>
   </div>
+  } @else {
+  <app-empty-cart></app-empty-cart>
+  }
 </section>
