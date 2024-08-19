@@ -13,7 +13,7 @@ namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
     [Migration("20240818173831_fix user")]
-    partial class fixuser
+    partial class Fixuser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
