@@ -2,11 +2,8 @@
 using Api.Extensions;
 using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -60,7 +57,7 @@ namespace Api.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpGet("auth-status")]
         public ActionResult GetAuthState()
         {
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });

@@ -1,14 +1,7 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
-using Microsoft.EntityFrameworkCore.Storage;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using IDatabase = StackExchange.Redis.IDatabase;
 
 namespace Infrastructure.Repositories

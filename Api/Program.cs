@@ -19,6 +19,7 @@ builder.Services.AddDbContext<StoreContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IPaymentService, PaymentService>(); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -37,7 +38,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 .WithOrigins("http://loalhost:4200", "https://localhost:4200"));
 app.MapControllers();
-app.MapGroup("api"). MapIdentityApi<AppUser>();
+app.MapGroup("api").MapIdentityApi<AppUser>();
 try
 {
     using var scope = app.Services.CreateScope();
