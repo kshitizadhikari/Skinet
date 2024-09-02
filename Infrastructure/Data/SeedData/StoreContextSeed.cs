@@ -1,10 +1,5 @@
 ﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Data.SeedData
 {
@@ -19,7 +14,15 @@ namespace Infrastructure.Data.SeedData
                 if (products == null) return;
                 context.Products.AddRange(products);
                 await context.SaveChangesAsync();
+            }
 
+            if (!context.DeliveryMethods.Any())
+            {
+                var deliveryMethodData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/delivery.json");
+                var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryMethodData);
+                if (deliveryMethods == null) return;
+                context.DeliveryMethods.AddRange(deliveryMethods);
+                await context.SaveChangesAsync();
             }
         }
     }
